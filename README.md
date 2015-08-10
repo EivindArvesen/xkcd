@@ -13,7 +13,7 @@ Current features:
 * List (searchable dropdown)
 * Random comic
 
-These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>Shift</kbd><kbd>+P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
+These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
 and via user-definable keyboard-shortcuts.
 Random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> by default.
 
