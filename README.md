@@ -1,7 +1,7 @@
 # Xkcd
-Sublime Text plugin for viewing [http://www.xkcd.com](xkcd) comics.
+Sublime Text plugin for viewing [xkcd](http://www.xkcd.com) comics.
 
-![Screenshot][xkcd.png]
+![Screenshot](xkcd.png)
 
 Now you can procrastinate directly from your editor!
 
