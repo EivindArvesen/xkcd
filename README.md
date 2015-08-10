@@ -1,9 +1,10 @@
 # Xkcd
-Sublime Text plugin for viewing [xkcd](http://www.xkcd.com) comics.
+Sublime Text 3 plugin for viewing [xkcd](http://www.xkcd.com) comics.
+Opens selected comic, title and alt-text in a transient view.
 
 ![Screenshot](xkcd.png)
 
-Now you can procrastinate directly from your editor!
+Now you too can procrastinate directly from your editor!
 
 ## Features
 Current features:
@@ -12,8 +13,9 @@ Current features:
 * List (searchable dropdown)
 * Random comic
 
-These are all available both via the quick panel (Ctrl/Cmd + Shift + P) and via
-user-definable keyboard-shortcuts. Random comic is bound (Ctrl + Alt + Shift + X) by default.
+These are all available both via the Command Palette (<kbd>Ctrl+Shift+P</kbd> on Windows and Linux or <kbd>⌘⇧P</kbd> on OS X)
+and via user-definable keyboard-shortcuts.
+Random comic is bound <kbd>Ctrl+Alt+Shift+X</kbd> by default.
 
 ## Installation
 Ensure that you have a relatively recent version of Sublime Text installed
@@ -24,7 +26,7 @@ Ensure that you have a relatively recent version of Sublime Text installed
 The easiest way to install is using [Sublime Package
 Control](https://sublime.wbond.net), where this package is listed as `Xkcd`.
 
-1. Open Command Palette using menu item `Tools -> Command Palette...` (<kbd>⇧</kbd><kbd>⌘</kbd><kbd>P</kbd> on Mac)
+1. Open Command Palette using menu item `Tools -> Command Palette...` (<kbd>Ctrl+Shift+P</kbd> on Windows and Linux or <kbd>⌘⇧P</kbd> on OS X)
 2. Choose `Package Control: Install Package`
 3. Find `Xkcd` and hit <kbd>Enter</kbd>
 
@@ -44,5 +46,5 @@ Contributions in the form of code (e.g. implementing new features, bug-fixes)
 are also appreciated.
 
 ## License
-This package is distributed under the terms of the 3-clause New BSD License. See the [LICENSE.txt][license] file for details.
+This package is distributed under the terms of the 3-clause New BSD License. See the [LICENSE.txt](license) file for details.
 
