@@ -46,5 +46,5 @@ Contributions in the form of code (e.g. implementing new features, bug-fixes)
 are also appreciated.
 
 ## License
-This package is distributed under the terms of the 3-clause New BSD License. See the [LICENSE.txt](license) file for details.
+This package is distributed under the terms of the 3-clause New BSD License. See the [license][]LICENSE.txt] file for details.
 
