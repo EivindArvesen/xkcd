@@ -1,0 +1,14 @@
+[
+    {
+        "caption": "Xkcd: Latest",
+        "command": "xkcd_latest"
+    },
+    {
+        "caption": "Xkcd: Random",
+        "command": "xkcd_random"
+    },
+    {
+        "caption": "Xkcd: List",
+        "command": "xkcd_list"
+    }
+]
