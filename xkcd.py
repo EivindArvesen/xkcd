@@ -1,14 +1,3 @@
-"""
-TODO:
-- Store comic metadata (in relation to ID or title?) so that users can
-    have several tabs open (and navigate between these)?
-- Navigation while viewing comic (first/previous/random/next/last)
-- Pad metadata panel and (derive value from sidebar width: viewport_extent(),
-    layout_extent())
-- Clean cache more often; currently only upon plugin reload.
-    Call plugin_unloaded from panel-close, or remove all images not in
-    xkcd_open[] ?
-"""
 import errno
 import json
 import os
