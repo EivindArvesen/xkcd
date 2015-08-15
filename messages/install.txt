@@ -1,0 +1,14 @@
+Xkcd
+================
+Xkcd is now installed!
+You can now acces the following commands from the command palette (cmd+shift+p / ctr+shift+p):
+- Xkcd: Latest
+- Xkcd: List
+- Xkcd: Random
+
+"Latest" and "Random" will open the latest and a random xkcd comic
+respectively, while "List" will open a searchable quick panel showing title,
+comic number and publication data for each comic.
+
+If you encounter any bugs, please open an issue on
+https://github.com/eivind88/xkcd

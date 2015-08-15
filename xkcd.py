@@ -65,28 +65,8 @@ class EventDump(sublime_plugin.EventListener):
 
     global xkcd_open
 
-    def on_load(self, view):
-        """File Loaded."""
-        # print (view.file_name(), "just got loaded")
-
-    def on_new(self, view):
-        """New file created."""
-        # print ("new file")
-
-    def on_modified(self, view):
-        """File modified."""
-        print (view.file_name(), "modified")
-        #if view.file_name() == None:
-        #print(view.command_history(0)[1])
-            #if view.command_history(1)[0] == 'Up':
-            #    print('Up, mofo!')
-        #myKey = sublime.getkeypress()
-        #print(myKey)
-
     def on_activated(self, view):
         """View activated."""
-        # print (view.file_name(), "is now the active view")
-        # xkcd_open.remove(self.num)
         if xkcd_open:
             try:
                 xkcd_open.pop()
@@ -99,7 +79,6 @@ class EventDump(sublime_plugin.EventListener):
 
     def on_close(self, view):
         """View closed."""
-        # print (view.file_name(), "is no more")
         clean_cache()
 
 
@@ -152,8 +131,6 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
 
         # HANDLE NAVIGATION (first/previous/next/last) HERE...
 
-        # self.view.run_command('push_tooltip', {'output': self.output})
-
 
 class XkcdLatestCommand(sublime_plugin.WindowCommand):
 
@@ -189,10 +166,6 @@ class XkcdListCommand(sublime_plugin.WindowCommand):
         clean_xml_str = xml_str.split('<br/>')
 
         self.menu_list = []
-        # file = open("/Users/Eivind/Desktop/FILE.TXT", "w")
-        # for line in clean_xml_str:
-        #    file.write(line.strip('\\n')+'\n')
-        # file.close()
         for line in clean_xml_str:
             if line is not None:
                 line_id = line.split('"/', 1)[-1].split('/"', 1)[0]
@@ -208,12 +181,3 @@ class XkcdListCommand(sublime_plugin.WindowCommand):
         if index is not -1:
             self.window.run_command(
                 'xkcd_get_comic', {'id': self.menu_list[index][1]})
-
-
-class PushTooltipCommand(sublime_plugin.TextCommand):
-
-    """Push tooltip."""
-
-    def run(self, edit, output):
-        """Main."""
-        self.view.show_popup(str(output), on_navigate=print, location=-1)
