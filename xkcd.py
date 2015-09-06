@@ -6,6 +6,7 @@ import sublime
 import sublime_plugin
 import sys
 import urllib
+from threading import Thread
 
 global xkcd_open
 xkcd_open = []
@@ -86,10 +87,16 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
 
     """Grab comic."""
 
-    def run(self, id):
+    def run(self, kind):
         """Main function, runs on activation."""
         # Grab comic via async background process
-        sublime.set_timeout_async(self.getComic(id), 0)
+        if kind == 'latest':
+            thread = Thread(target=self.getComic)
+        elif kind == 'random':
+            thread = Thread(target=self.getRandomComic)
+        elif kind == 'list':
+            thread = Thread(target=self.getList)
+        thread.start()
 
     def getComic(self, id=None):
         """Background loop."""
@@ -131,33 +138,13 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
 
         # HANDLE NAVIGATION (first/previous/next/last) HERE...
 
-
-class XkcdLatestCommand(sublime_plugin.WindowCommand):
-
-    """Latest Xkcd."""
-
-    def run(self):
-        """Main function, runs on activation."""
-        self.window.run_command('xkcd_get_comic', {'id': None})
-
-
-class XkcdRandomCommand(sublime_plugin.WindowCommand):
-
-    """Random Xkcd."""
-
-    def run(self):
-        """Main function, runs on activation."""
+    def getRandomComic(self):
+        """Background loop."""
         latest = xJson()
-        self.window.run_command(
-            'xkcd_get_comic', {'id': random.randrange(latest['num'])})
+        self.getComic(random.randrange(latest['num']))
 
-
-class XkcdListCommand(sublime_plugin.WindowCommand):
-
-    """List Xkcd."""
-
-    def run(self):
-        """Main function, runs on activation."""
+    def getList(self):
+        """Background loop."""
         url = 'http://xkcd.com/archive/'
         xml_str = str(urllib.request.urlopen(url).read()).split(
             '(Hover mouse over title to view publication date)<br /><br />',
@@ -179,5 +166,39 @@ class XkcdListCommand(sublime_plugin.WindowCommand):
     def on_chosen(self, index):
         """Comic chosen from quick panel."""
         if index is not -1:
-            self.window.run_command(
-                'xkcd_get_comic', {'id': self.menu_list[index][1]})
+            thread = Thread(
+                target=self.getComic, args=(self.menu_list[index][1],))
+            thread.start()
+
+
+class XkcdLatestCommand(sublime_plugin.WindowCommand):
+
+    """Latest Xkcd."""
+
+    def run(self):
+        """Main function, runs on activation."""
+        self.window.run_command(
+            'xkcd_get_comic', {'kind': 'latest'}
+        )
+
+
+class XkcdRandomCommand(sublime_plugin.WindowCommand):
+
+    """Random Xkcd."""
+
+    def run(self):
+        """Main function, runs on activation."""
+        self.window.run_command(
+            'xkcd_get_comic', {'kind': 'random'}
+        )
+
+
+class XkcdListCommand(sublime_plugin.WindowCommand):
+
+    """List Xkcd."""
+
+    def run(self):
+        """Main function, runs on activation."""
+        self.window.run_command(
+            'xkcd_get_comic', {'kind': 'list'}
+        )
