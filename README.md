@@ -13,20 +13,19 @@ Current features:
 * List (searchable dropdown)
 * Random comic
 
-These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
+These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
 and via user-definable keyboard-shortcuts.
-Random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> by default.
+
+Viewing a random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>⇧</kbd>+<kbd>X</kbd> by default.
 
 ## Installation
-Ensure that you have a relatively recent version of Sublime Text installed
-(version 3, beta or dev release).
+Ensure that you have a relatively recent version of Sublime Text installed (version 3, beta or dev release).
 
 ### Via Package Control
 
-The easiest way to install is using [Sublime Package
-Control](https://sublime.wbond.net), where this package is listed as `Xkcd`.
+The easiest way to install is using [Sublime Package Control](https://sublime.wbond.net), where this package is listed as `Xkcd`.
 
-1. Open Command Palette using menu item `Tools -> Command Palette...` (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
+1. Open Command Palette using menu item `Tools -> Command Palette...` (<kbd>Ctrl</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
 2. Choose `Package Control: Install Package`
 3. Find `Xkcd` and hit <kbd>Enter</kbd>
 
@@ -41,7 +40,9 @@ You can also install the package manually:
 
 ## Contributing
 Giving feedback regarding the plugin is strongly encouraged.
+
 If you run into a bug or would like to see a new feature, please open a new issue.
+
 Contributions in the form of code (e.g. implementing new features, bug-fixes)
 are also appreciated.
 
