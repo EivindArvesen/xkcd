@@ -55,9 +55,9 @@ def xJson(id=None):
         return result
 
     except urllib.error.HTTPError as e:
-        err = '%s: HTTP error %s contacting API' % (__name__, str(e.code))
+        sublime.error_message('Xkcd: %s: HTTP error %s contacting API' % (__name__, str(e.code)))
     except urllib.error.URLError as e:
-        err = '%s: URL error %s contacting API' % (__name__, str(e.reason))
+        sublime.error_message('Xkcd: %s: URL error %s contacting API' % (__name__, str(e.reason)))
 
 
 class EventDump(sublime_plugin.EventListener):
@@ -102,41 +102,42 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
         """Background loop."""
         result = xJson(id)
 
-        self.title = result['title']
-        self.img = result['img']
-        self.alt = result['alt']
-        self.num = result['num']
+        if result is not None:
+            self.title = result['title']
+            self.img = result['img']
+            self.alt = result['alt']
+            self.num = result['num']
 
-        try:
-            local_img = sublime.cache_path() + os.path.sep + 'Xkcd' + \
-                os.path.sep + self.img.split('/')[-1]
-            urllib.request.urlretrieve(self.img, local_img)
+            try:
+                local_img = sublime.cache_path() + os.path.sep + 'Xkcd' + \
+                    os.path.sep + self.img.split('/')[-1]
+                urllib.request.urlretrieve(self.img, local_img)
 
-        except urllib.error.HTTPError as e:
-            err = '%s: HTTP error %s contacting API' % (__name__, str(e.code))
-        except urllib.error.URLError as e:
-            err = '%s: URL error %s contacting API' % (__name__, str(e.reason))
+            except urllib.error.HTTPError as e:
+                sublime.error_message('Xkcd: %s: HTTP error %s retrieving image' % (__name__, str(e.code)))
+            except urllib.error.URLError as e:
+                sublime.error_message('Xkcd: %s: URL error %s retrieving image' % (__name__, str(e.reason)))
 
-        self.output = '[' + str(self.num) + '] ' + \
-            self.title + '\n\n' + self.alt
+            self.output = '[' + str(self.num) + '] ' + \
+                self.title + '\n\n' + self.alt
 
-        # sublime.error_message(err)
+            panel = self.window.create_output_panel('xkcd_meta')
+            panel.run_command('erase_view')
+            self.window.run_command(
+                "show_panel", {"panel": "output.xkcd_meta"})
+            self.window.get_output_panel('xkcd_meta').run_command(
+                'append', {'characters': self.output})
+            panel.settings().set("word_wrap", True)
+            # print(int(self.window.active_view().viewport_extent()[0]-self.window.active_view().layout_extent()[0]))
 
-        panel = self.window.create_output_panel('xkcd_meta')
-        panel.run_command('erase_view')
-        self.window.run_command(
-            "show_panel", {"panel": "output.xkcd_meta"})
-        self.window.get_output_panel('xkcd_meta').run_command(
-            'append', {'characters': self.output})
-        panel.settings().set("word_wrap", True)
-        # print(int(self.window.active_view().viewport_extent()[0]-self.window.active_view().layout_extent()[0]))
+            self.window.open_file(local_img, sublime.TRANSIENT)
 
-        self.window.open_file(local_img, sublime.TRANSIENT)
+            global xkcd_open
+            xkcd_open.append(self.num)
 
-        global xkcd_open
-        xkcd_open.append(self.num)
-
-        # HANDLE NAVIGATION (first/previous/next/last) HERE...
+            # HANDLE NAVIGATION (first/previous/next/last) HERE...
+        else:
+            sublime.error_message('Xkcd: Error reading API response')
 
     def getRandomComic(self):
         """Background loop."""
@@ -146,10 +147,13 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
     def getList(self):
         """Background loop."""
         url = 'http://xkcd.com/archive/'
-        xml_str = str(urllib.request.urlopen(url).read()).split(
-            '(Hover mouse over title to view publication date)<br /><br />',
-            1)[-1].split(
-            '</div>\\n<div id="bottom" class="box">', 1)[0].strip()
+        try:
+            xml_str = str(urllib.request.urlopen(url).read()).split(
+                '(Hover mouse over title to view publication date)<br /><br />',
+                1)[-1].split(
+                '</div>\\n<div id="bottom" class="box">', 1)[0].strip()
+        except urllib.error.URLError as e:
+            print ('Xkcd: %s: URL error %s reading list' % (__name__, str(e.reason)))
         clean_xml_str = xml_str.split('<br/>')
 
         self.menu_list = []
