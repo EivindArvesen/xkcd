@@ -23,6 +23,52 @@ def plugin_loaded():
         if e.errno != errno.EEXIST:
             raise IOError('Error encountered during file creation.')
 
+    # Set up http(s) proxy
+    settings = sublime.load_settings("Package Control.sublime-settings")
+    http_proxy = settings.get('http_proxy')
+    https_proxy = settings.get('https_proxy')
+    if http_proxy or https_proxy:
+        proxies = {}
+        if http_proxy:
+            proxies['http'] = http_proxy
+        if https_proxy:
+            proxies['https'] = https_proxy
+        print("Proxies:", proxies)
+        proxy_handler = urllib.request.ProxyHandler(proxies)
+    else:
+        proxy_handler = urllib.request.ProxyHandler()
+
+    # sublime.error_message(str(proxies))
+
+    password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    proxy_username = settings.get('proxy_username')
+    proxy_password = settings.get('proxy_password')
+    if proxy_username and proxy_password:
+        if http_proxy:
+            password_manager.add_password(None, http_proxy, proxy_username,
+                proxy_password)
+        if https_proxy:
+            password_manager.add_password(None, https_proxy, proxy_username,
+                proxy_password)
+
+    handlers = [proxy_handler]
+
+    basic_auth_handler = urllib.request.ProxyBasicAuthHandler(password_manager)
+    digest_auth_handler = urllib.request.ProxyDigestAuthHandler(password_manager)
+    handlers.extend([digest_auth_handler, basic_auth_handler])
+
+    global opener
+    opener = urllib.request.build_opener(
+            *handlers
+            #urllib.request.ProxyHandler(
+            #    {"http":"http://[user]:[password]@[proxy_IP]:[proxy_port]"}
+            #)
+        )
+
+    urllib.request.install_opener(
+        opener
+    )
+
 
 def plugin_unloaded():
     """Called directly from sublime on plugin unload."""
@@ -48,7 +94,8 @@ def xJson(id=None):
     try:
         request = urllib.request.Request(url, headers={"User-Agent":
                                                        "Sublime Xkcd"})
-        opener = urllib.request.build_opener()
+        #opener = urllib.request.build_opener()
+        global opener
         f = opener.open(request)
         result = json.loads(f.read().decode("utf-8"))
 

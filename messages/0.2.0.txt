@@ -1,0 +1,1 @@
+Xkcd now supports http(s) proxies via variables from Package Control settings ("Package Control.sublime-settings").
