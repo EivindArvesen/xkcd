@@ -1,5 +1,5 @@
 # Xkcd
-Sublime Text 3 plugin for viewing [xkcd](http://www.xkcd.com) comics.
+Sublime Text 3 package for viewing [xkcd](http://www.xkcd.com) comics.
 Opens selected comic, title and alt-text in a transient view.
 
 ![Screenshot](xkcd.png)
@@ -17,6 +17,8 @@ These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>⇧</
 and via user-definable keyboard-shortcuts.
 
 Viewing a random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>⇧</kbd>+<kbd>X</kbd> by default.
+
+This package supports http(s) proxies via variables from Package Control settings ("Package Control.sublime-settings").
 
 ## Installation
 Ensure that you have a relatively recent version of Sublime Text installed (version 3, beta or dev release).
@@ -39,7 +41,7 @@ You can also install the package manually:
     menu item `Sublime Text -> Preferences -> Browse Packages...`
 
 ## Contributing
-Giving feedback regarding the plugin is strongly encouraged.
+Giving feedback regarding the package is strongly encouraged.
 
 If you run into a bug or would like to see a new feature, please open a new issue.
 
