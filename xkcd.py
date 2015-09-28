@@ -8,6 +8,10 @@ import sys
 import urllib
 from threading import Thread
 
+
+global opener
+opener = urllib.request.build_opener()
+
 global xkcd_open
 xkcd_open = []
 
@@ -33,41 +37,29 @@ def plugin_loaded():
             proxies['http'] = http_proxy
         if https_proxy:
             proxies['https'] = https_proxy
-        print("Proxies:", proxies)
-        proxy_handler = urllib.request.ProxyHandler(proxies)
-    else:
-        proxy_handler = urllib.request.ProxyHandler()
+        #print("Proxies:", proxies)
 
     # sublime.error_message(str(proxies))
 
-    password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
     proxy_username = settings.get('proxy_username')
     proxy_password = settings.get('proxy_password')
     if proxy_username and proxy_password:
         if http_proxy:
-            password_manager.add_password(None, http_proxy, proxy_username,
-                proxy_password)
+            proxies['http'] = proxy_username + ":" + \
+                proxy_password + "@" + http_proxy
         if https_proxy:
-            password_manager.add_password(None, https_proxy, proxy_username,
-                proxy_password)
-
-    handlers = [proxy_handler]
-
-    basic_auth_handler = urllib.request.ProxyBasicAuthHandler(password_manager)
-    digest_auth_handler = urllib.request.ProxyDigestAuthHandler(password_manager)
-    handlers.extend([digest_auth_handler, basic_auth_handler])
+            proxies['https'] = proxy_username + ":" + \
+                proxy_password + "@" + https_proxy
 
     global opener
     opener = urllib.request.build_opener(
-            *handlers
-            #urllib.request.ProxyHandler(
-            #    {"http":"http://[user]:[password]@[proxy_IP]:[proxy_port]"}
-            #)
+        urllib.request.ProxyHandler(
+            #{"http":"http://[user]:[password]@[proxy_IP]:[proxy_port]"}
+            proxies
+            #{"http": https_proxy, "https": https_proxy}
         )
-
-    urllib.request.install_opener(
-        opener
     )
+    urllib.request.install_opener(opener)
 
 
 def plugin_unloaded():
@@ -79,7 +71,8 @@ def clean_cache():
     """Delete cache"""
     for fl in os.listdir(sublime.cache_path() + os.path.sep + 'Xkcd'):
         try:
-            os.remove(sublime.cache_path() + os.path.sep + 'Xkcd' + os.path.sep + fl)
+            os.remove(
+                sublime.cache_path() + os.path.sep + 'Xkcd' + os.path.sep + fl)
         except OSError as e:
             raise IOError('Could not remove previous files.')
 
@@ -102,9 +95,11 @@ def xJson(id=None):
         return result
 
     except urllib.error.HTTPError as e:
-        sublime.error_message('Xkcd: %s: HTTP error %s contacting API' % (__name__, str(e.code)))
+        sublime.error_message(
+            'Xkcd: %s: HTTP error %s contacting API' % (__name__, str(e.code)))
     except urllib.error.URLError as e:
-        sublime.error_message('Xkcd: %s: URL error %s contacting API' % (__name__, str(e.reason)))
+        sublime.error_message(
+            'Xkcd: %s: URL error %s contacting API' % (__name__, str(e.reason)))
 
 
 class EventDump(sublime_plugin.EventListener):
@@ -123,7 +118,6 @@ class EventDump(sublime_plugin.EventListener):
             if view.file_name() != None:
                 view.window().run_command(
                     "hide_panel", {"panel": "output.xkcd_meta"})
-
 
     def on_close(self, view):
         """View closed."""
@@ -161,9 +155,11 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
                 urllib.request.urlretrieve(self.img, local_img)
 
             except urllib.error.HTTPError as e:
-                sublime.error_message('Xkcd: %s: HTTP error %s retrieving image' % (__name__, str(e.code)))
+                sublime.error_message(
+                    'Xkcd: %s: HTTP error %s retrieving image' % (__name__, str(e.code)))
             except urllib.error.URLError as e:
-                sublime.error_message('Xkcd: %s: URL error %s retrieving image' % (__name__, str(e.reason)))
+                sublime.error_message(
+                    'Xkcd: %s: URL error %s retrieving image' % (__name__, str(e.reason)))
 
             self.output = '[' + str(self.num) + '] ' + \
                 self.title + '\n\n' + self.alt
@@ -200,7 +196,8 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
                 1)[-1].split(
                 '</div>\\n<div id="bottom" class="box">', 1)[0].strip()
         except urllib.error.URLError as e:
-            print ('Xkcd: %s: URL error %s reading list' % (__name__, str(e.reason)))
+            print ('Xkcd: %s: URL error %s reading list' %
+                   (__name__, str(e.reason)))
         clean_xml_str = xml_str.split('<br/>')
 
         self.menu_list = []
