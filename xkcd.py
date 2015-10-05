@@ -31,8 +31,8 @@ def plugin_loaded():
     settings = sublime.load_settings("Package Control.sublime-settings")
     http_proxy = settings.get('http_proxy')
     https_proxy = settings.get('https_proxy')
+    proxies = {}    
     if http_proxy or https_proxy:
-        proxies = {}
         if http_proxy:
             proxies['http'] = http_proxy
         if https_proxy:
