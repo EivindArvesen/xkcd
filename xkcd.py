@@ -5,6 +5,7 @@ import random
 import sublime
 import sublime_plugin
 import sys
+import textwrap
 import urllib
 from threading import Thread
 
@@ -31,7 +32,7 @@ def plugin_loaded():
     settings = sublime.load_settings("Package Control.sublime-settings")
     http_proxy = settings.get('http_proxy')
     https_proxy = settings.get('https_proxy')
-    proxies = {}    
+    proxies = {}
     if http_proxy or https_proxy:
         if http_proxy:
             proxies['http'] = http_proxy
@@ -162,7 +163,7 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
                     'Xkcd: %s: URL error %s retrieving image' % (__name__, str(e.reason)))
 
             self.output = '[' + str(self.num) + '] ' + \
-                self.title + '\n\n' + self.alt
+                self.title + '\n\n' + textwrap.fill(self.alt, 80)
 
             panel = self.window.create_output_panel('xkcd_meta')
             panel.run_command('erase_view')
