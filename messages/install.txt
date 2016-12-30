@@ -10,5 +10,9 @@ You can now acces the following commands from the command palette (cmd+shift+p /
 respectively, while "List" will open a searchable quick panel showing title,
 comic number and publication data for each comic.
 
+"Random" is bound to "ctrl+alt+x" by default.
+
+You can manually set the line width of the alt text in your user preference file, which is available via the menu "Preferences" => "Package Settings" => "Xkcd" etc.
+
 If you encounter any bugs, please open an issue on
 https://github.com/eivind88/xkcd

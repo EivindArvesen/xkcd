@@ -1,0 +1,3 @@
+Viewing a random comic is now bound to "ctrl+alt+x" by default, as the old shortcut wasn't working anymore.
+
+You can now manually set the line width of the alt text in your user preference file, which is available via the menu "Preferences" => "Package Settings" => "Xkcd" etc.

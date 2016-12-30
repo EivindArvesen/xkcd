@@ -16,7 +16,7 @@ Current features:
 These are all available both via the Command Palette (<kbd>Ctrl</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on Windows and Linux or <kbd>⌘</kbd>+<kbd>⇧</kbd>+<kbd>P</kbd> on OS X)
 and via user-definable keyboard-shortcuts.
 
-Viewing a random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>⇧</kbd>+<kbd>X</kbd> by default.
+Viewing a random comic is bound <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>X</kbd> by default.
 
 This package supports http(s) proxies via variables from Package Control settings ("Package Control.sublime-settings").
 
