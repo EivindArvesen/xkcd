@@ -11,24 +11,24 @@
                 "children":
                 [
                     {
-                        "caption": "_Xkcd",
+                        "caption": "Xkcd",
                         "children":
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/_SublimeXkcd/README.md"},
+                                "args": {"file": "${packages}/Xkcd/README.md"},
                                 "caption": "README"
                             },
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/_SublimeXkcd/LICENSE"},
+                                "args": {"file": "${packages}/Xkcd/LICENSE"},
                                 "caption": "LICENSE"
                             },
                             { "caption": "-" },
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/_SublimeXkcd/Default (OSX).sublime-keymap",
+                                    "file": "${packages}/Xkcd/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -36,7 +36,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/_SublimeXkcd/Default (Linux).sublime-keymap",
+                                    "file": "${packages}/Xkcd/Default (Linux).sublime-keymap",
                                     "platform": "Linux"
                                 },
                                 "caption": "Key Bindings – Default"
@@ -44,7 +44,7 @@
                             {
                                 "command": "open_file",
                                 "args": {
-                                    "file": "${packages}/_SublimeXkcd/Default (Windows).sublime-keymap",
+                                    "file": "${packages}/Xkcd/Default (Windows).sublime-keymap",
                                     "platform": "Windows"
                                 },
                                 "caption": "Key Bindings – Default"

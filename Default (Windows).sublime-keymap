@@ -1,5 +1,5 @@
 [
     {"command": "xkcd_latest", "keys": [""]},
-    {"command": "xkcd_random", "keys": ["ctrl+alt+shift+x"]},
+    {"command": "xkcd_random", "keys": ["ctrl+alt+x"]},
     {"command": "xkcd_list", "keys": [""]}
 ]
