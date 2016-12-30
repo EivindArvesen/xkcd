@@ -28,6 +28,23 @@
                             {
                                 "command": "open_file",
                                 "args": {
+                                    "file": "${packages}/Xkcd/Xkcd.sublime-settings",
+                                    "platform": "OSX"
+                                },
+                                "caption": "Settings – Default"
+                            },
+                            {
+                                "command": "open_file",
+                                "args": {
+                                    "file": "${packages}/User/Xkcd.sublime-settings",
+                                    "platform": "OSX"
+                                },
+                                "caption": "Settings – User"
+                            },
+                            { "caption": "-" },
+                            {
+                                "command": "open_file",
+                                "args": {
                                     "file": "${packages}/Xkcd/Default (OSX).sublime-keymap",
                                     "platform": "OSX"
                                 },

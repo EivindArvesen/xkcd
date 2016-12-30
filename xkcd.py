@@ -16,12 +16,20 @@ opener = urllib.request.build_opener()
 global xkcd_open
 xkcd_open = []
 
+global wrap_width
+
 if sys.version_info < (3, 3):
     raise RuntimeError('Xkcd works with Sublime Text 3 only')
 
 
 def plugin_loaded():
     """Called directly from sublime on plugin load."""
+    settings = sublime.load_settings('Xkcd.sublime-settings')
+    global wrap_width
+    wrap_width = settings.get('line_width')
+    print(wrap_width)
+
+
     try:
         os.makedirs(sublime.cache_path() + os.path.sep + 'Xkcd')
     except OSError as e:
@@ -162,8 +170,14 @@ class XkcdGetComicCommand(sublime_plugin.WindowCommand):
                 sublime.error_message(
                     'Xkcd: %s: URL error %s retrieving image' % (__name__, str(e.reason)))
 
+            global wrap_width
+            if wrap_width:
+                self.alt_text = textwrap.fill(self.alt, wrap_width)
+            else:
+                self.alt_text = self.alt
+
             self.output = '[' + str(self.num) + '] ' + \
-                self.title + '\n\n' + textwrap.fill(self.alt, 80)
+                self.title + '\n\n' + self.alt_text
 
             panel = self.window.create_output_panel('xkcd_meta')
             panel.run_command('erase_view')
